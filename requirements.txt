@@ -1,0 +1,8 @@
+pandas
+scipy
+numpy
+sklearn
+matplotlib
+mplsoccer
+warnings
+streamlit

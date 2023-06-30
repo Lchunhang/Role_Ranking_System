@@ -16,32 +16,17 @@ import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 
-hide_menu = """
+hide_github_icon = """
 <style>
-#MainMenu {
-    visibility:hidden;
+#GithubIcon {
+  visibility: hidden;
 }
+
 </style>
-
 """
-
-st.markdown(hide_menu,unsafe_allow_html=True)
-
+st.markdown(hide_github_icon,unsafe_allow_html=True)
 
 
-
-
-st.markdown(
-    """
-    <style>
-    @font-face {
-        font-family: 'Consolas';
-        src: url('fonts/consolas.ttf');
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)

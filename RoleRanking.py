@@ -23,7 +23,7 @@ hide_github_icon = """
 .css-1a1tcp, .e1ewe7hr3 { display: none; } 
 </style>
 """
-st.markdown(hide_github_icon,unsafe_allow_html=True)
+#st.markdown(hide_github_icon,unsafe_allow_html=True)
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)

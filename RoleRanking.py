@@ -16,6 +16,14 @@ import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 
+# Add custom CSS to hide the GitHub icon
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)

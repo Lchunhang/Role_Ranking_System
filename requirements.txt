@@ -1,7 +1,6 @@
 pandas
 scipy
 numpy
-sklearn
 ipywidgets
 matplotlib
 mplsoccer

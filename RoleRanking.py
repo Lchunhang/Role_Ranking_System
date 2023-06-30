@@ -20,14 +20,12 @@ from streamlit import components
 components.html(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Consolas&display=swap');
     </style>
     """,
     height=0,
 )
 
-5. Finally, add the following line after the `components.html()` line to apply the custom CSS file:
-```python
 components.html(
     """
     <link rel="stylesheet" href="custom.css">

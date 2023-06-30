@@ -16,6 +16,13 @@ import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 
+
+font_normal = FontManager('https://raw.githubusercontent.com/google/fonts/main/apache/roboto/'
+                          'Roboto%5Bwdth,wght%5D.ttf')
+
+
+
+
 hide_github_icon = """
 <style>
 .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } 
@@ -371,7 +378,6 @@ roles = list(df.columns)
 roles = roles[-3:]
 
 #######################################################################
-plt.rcParams["font.family"] = "Consolas"
 
 # color for the slices and text
 slice_colors = ["#42b84a"] * 2 + ["#fbcf00"] * 2 + ["#39a7ab"] * 2
@@ -433,7 +439,7 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.98, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontfamily='Monaco', color="black"
+    ha="center", fontweight='bold', fontfamily=font_normal, color="black"
 )
 
 # add text

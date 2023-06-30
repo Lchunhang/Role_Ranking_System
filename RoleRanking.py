@@ -468,7 +468,7 @@ fig.text(
 )
 
 fig.text(
-    1.15, 0.267, score3, size=50,
+    1.13, 0.267, score3, size=50,
     ha="left", fontweight='bold', fontfamily='Courier New', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )

@@ -16,12 +16,6 @@ import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 
-components.html(
-    """
-    <link rel="stylesheet" href="custom.css">
-    """,
-    height=0,
-)
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)

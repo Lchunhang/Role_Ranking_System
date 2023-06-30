@@ -5,3 +5,4 @@ ipywidgets
 matplotlib
 mplsoccer
 streamlit
+scikit-learn

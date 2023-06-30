@@ -8,7 +8,6 @@
 import pandas as pd
 from scipy.stats import zscore
 import numpy as np
-from sklearn import preprocessing
 import ipywidgets as widgets
 import matplotlib.pyplot as plt
 from mplsoccer import PyPizza, add_image, FontManager

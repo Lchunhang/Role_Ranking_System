@@ -402,7 +402,7 @@ fig, ax = baker.make_pizza(
         edgecolor="black", zorder=3, linewidth=4
     ),                              
     kwargs_params=dict(
-        color="black", fontsize=17,fontweight='bold',fontfamily='DejaVu Sans',  va="center"
+        color="black", fontsize=17,fontfamily='DejaVu Sans',  va="center"
     ),                               
     kwargs_values=dict(
         color="black", fontsize=20,fontweight='bold',
@@ -439,12 +439,12 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.93, position + " Template | "+ str(minutes) + " Minutes Played",size=23, fontfamily='DejaVu Sans',
-    ha="center", fontweight='bold', color="black"
+    ha="center", color="black"
 )
 
 
 fig.text(
-    1.15, 0.78, score1, size=50,
+    1.13, 0.78, score1, size=50,
     ha="left", fontweight='bold', fontfamily='Consolas', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
@@ -456,7 +456,7 @@ fig.text(
 )
 
 fig.text(
-    1.15, 0.516, score2, size=50,
+    1.13, 0.516, score2, size=50,
     ha="left", fontweight='bold', fontfamily='Courier New', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )

@@ -4,6 +4,7 @@
 
 body {
     font-family: 'Consolas', monospace;
+    font-weight: 'bold';
 }
 
 #GithubIcon {

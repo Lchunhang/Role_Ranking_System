@@ -18,7 +18,7 @@ from streamlit import components
 
 hide_github_icon = """
 <style>
-.css-1jc7ptx, .e1ewe7hr3{ display: none; }
+.css-1jc7ptx{ display: none; }
 </style>
 """
 st.markdown(hide_github_icon,unsafe_allow_html=True)

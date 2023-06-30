@@ -18,12 +18,10 @@ from streamlit import components
 
 hide_github_icon = """
 <style>
-.css-1jc7ptx, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } #MainMenu{ visibility: hidden; } footer { visibility: hidden; } header { visibility: hidden; }
+.css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } 
 </style>
 """
 st.markdown(hide_github_icon,unsafe_allow_html=True)
-
-
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)
@@ -34,8 +32,7 @@ st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">By Ch
 
 with st.expander("App Details"):
     st.write('''
-    This App Evaluates and Ranks Players Based on Their Statistics in Specific Roles.\n
-    The Role Ranking System Assigns Varrying Weightages to Different Attributes Based on Their Relevance to Specific Roles, Reflecting the Author's Perspective Backed by Extensive Research.\n
+    The Role Ranking System Assigns Varrying Weightages to Different Metrics Based on Their Relevance to Specific Roles, Reflecting the Author's Perspective Backed by Extensive Research.\n
     Note: Only Outfielders from Top 5 Leagues with >1080 Minutes Played in 2022/23 Season are Included for Selection.
     ''')
 

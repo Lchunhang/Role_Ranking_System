@@ -28,7 +28,7 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 pd.options.mode.chained_assignment = None 
 
 st.markdown('<p style="font-size: 60px; font-weight: bold;">Player Role Rating System</p>', unsafe_allow_html=True)
-st.markdown('<p style="font-family:'Consolas'; font-weight:bold; font-size: 20px; color: #808080;">By Chun Hang (<a href="https://twitter.com/chunhang7" target="_blank">Twitter</a> & <a href="https://www.instagram.com/chunhang7/" target="_blank">Instagram</a>): @chunhang7</p>', unsafe_allow_html=True)
+st.markdown('<p style="font-family:Consolas; font-weight:bold; font-size: 20px; color: #808080;">By Chun Hang (<a href="https://twitter.com/chunhang7" target="_blank">Twitter</a> & <a href="https://www.instagram.com/chunhang7/" target="_blank">Instagram</a>): @chunhang7</p>', unsafe_allow_html=True)
 
 with st.expander("App Details"):
     st.write('''

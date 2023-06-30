@@ -17,10 +17,9 @@ from streamlit import components
 import os
 import matplotlib.font_manager as fm
 
-
 hide_github_icon = """
 <style>
-.css-1wbqy5l.ejj6ze1 { display: none; } 
+.css-1a1tcp.e1ewe7hr3{ display: none; } 
 </style>
 """
 st.markdown(hide_github_icon,unsafe_allow_html=True)

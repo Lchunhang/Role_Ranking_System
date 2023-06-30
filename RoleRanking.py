@@ -457,32 +457,32 @@ fig.text(
 
 fig.text(
     1.15, 0.516, score2, size=50,
-    ha="left", fontweight='bold', fontfamily='Consolas', color="black",
+    ha="left", fontweight='bold', fontfamily='DejaVu Sans', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
 
 # add text
 fig.text(
     1.2, 0.417, roles[1] + "\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='Consolas', color="black"
+    ha="center", fontweight='bold', fontfamily='DejaVu Sans', color="black"
 )
 
 fig.text(
     1.15, 0.267, score3, size=50,
-    ha="left", fontweight='bold', fontfamily='Consolas', color="black",
+    ha="left", fontweight='bold', fontfamily='DejaVu Sans', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
 
 # add text
 fig.text(
     1.2, 0.166, roles[2] +"\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontweight='bold', fontfamily='DejaVu Sans', color="black"
 )
 
 # add text
 fig.text(
     0.745, 0.1, "Note: Top 5 European Leagues Players with 1080+ Minutes Included | Data: Opta | By @chunhang7" ,
-    size=15, ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    size=15, ha="center", fontfamily='Courier New', color="black"
 )
 
 # Display the plot

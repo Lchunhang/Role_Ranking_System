@@ -5,3 +5,8 @@
 body {
     font-family: 'Consolas', monospace;
 }
+
+#GithubIcon {
+  visibility: hidden;
+}
+

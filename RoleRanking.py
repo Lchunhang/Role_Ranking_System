@@ -457,26 +457,26 @@ fig.text(
 
 fig.text(
     1.15, 0.516, score2, size=50,
-    ha="left", fontweight='bold', fontfamily='DejaVu Sans', color="black",
+    ha="left", fontweight='bold', fontfamily='Courier New', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
 
 # add text
 fig.text(
     1.2, 0.417, roles[1] + "\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='DejaVu Sans', color="black"
+    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
 )
 
 fig.text(
     1.15, 0.267, score3, size=50,
-    ha="left", fontweight='bold', fontfamily='DejaVu Sans', color="black",
+    ha="left", fontweight='bold', fontfamily='Courier New', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
 
 # add text
 fig.text(
     1.2, 0.166, roles[2] +"\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='DejaVu Sans', color="black"
+    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
 )
 
 # add text

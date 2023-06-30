@@ -22,7 +22,7 @@ hide_github_icon = """
 .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } 
 </style>
 """
-#st.markdown(hide_github_icon,unsafe_allow_html=True)
+st.markdown(hide_github_icon,unsafe_allow_html=True)
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)
@@ -373,6 +373,11 @@ roles = roles[-3:]
 
 #######################################################################
 
+# Set the font path
+fpath = os.path.join(os.getcwd(), "NOTO_SANS_JP/NotoSansJP-Regular.otf")
+prop = fm.FontProperties(fname=fpath)
+
+
 # color for the slices and text
 slice_colors = ["#42b84a"] * 2 + ["#fbcf00"] * 2 + ["#39a7ab"] * 2
 text_colors = ["#000000"] * 2 +  ["#000000"] * 2 + ["#000000"] * 2
@@ -433,7 +438,7 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.98, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontfamily='Arial', color="black"
+    ha="center", fontweight='bold', fontproperties=prop, color="black"
 )
 
 # add text

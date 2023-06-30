@@ -434,7 +434,7 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.98, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontproperties=prop, color="black"
+    ha="center", fontweight='bold', fontfamily='Consolas', color="black"
 )
 
 # add text

@@ -481,7 +481,7 @@ fig.text(
 
 # add text
 fig.text(
-    0.745, 0.1, "Note: Top 5 European Leagues Players with 1080+ Minutes Included | Data: Opta | By @chunhang7" ,
+    0.75, 0.1, "Note: Top 5 European Leagues Players with 1080+ Minutes Included | Data: Opta | By @chunhang7" ,
     size=15, ha="center", fontfamily='Courier New', color="black"
 )
 

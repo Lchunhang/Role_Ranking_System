@@ -16,6 +16,21 @@ import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 
+hide_menu = """
+<style>
+#MainMenu {
+    visibility:hidden;
+}
+</style>
+
+"""
+
+st.markdown(hide_menu,unsafe_allow_html=True)
+
+
+
+
+
 st.markdown(
     """
     <style>

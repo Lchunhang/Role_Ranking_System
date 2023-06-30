@@ -30,7 +30,7 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 pd.options.mode.chained_assignment = None 
 
 st.markdown('<p style="font-size: 60px; font-weight: bold;">Player Role Rating System</p>', unsafe_allow_html=True)
-st.markdown('<p style="font-family:Consolas; font-weight:bold; font-size: 20px; color: #808080;">By Chun Hang (<a href="https://twitter.com/chunhang7" target="_blank">Twitter</a> & <a href="https://www.instagram.com/chunhang7/" target="_blank">Instagram</a>): @chunhang7</p>', unsafe_allow_html=True)
+st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">By Chun Hang (<a href="https://twitter.com/chunhang7" target="_blank">Twitter</a> & <a href="https://www.instagram.com/chunhang7/" target="_blank">Instagram</a>): @chunhang7</p>', unsafe_allow_html=True)
 
 with st.expander("App Details"):
     st.write('''
@@ -423,12 +423,12 @@ fig.text(
 
 # add text
 fig.text(
-    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
+    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', fontfamily='Consolas', color="none"
 )
 
 # add text
 fig.text(
-    0.095, 1, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
+    0.095, 1, "Space",size=10, ha="center", fontweight='bold', fontfamily='Consolas', color="none"
 )
 
 # add text
@@ -477,13 +477,13 @@ fig.text(
 # add text
 fig.text(
     1.2, 0.166, roles[2] +"\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='Consolas', color="black"
+    ha="center", fontweight='bold', fontfamily='Consolass', color="black"
 )
 
 # add text
 fig.text(
     0.745, 0.1, "Note: Top 5 European Leagues Players with 1080+ Minutes Included | Data: Opta | By @chunhang7" ,
-    size=15, ha="center", fontweight='bold', fontfamily='Consolas', color="black"
+    size=15, ha="center", fontweight='bold', fontfamily='Consolass', color="black"
 )
 
 # Display the plot

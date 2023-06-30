@@ -374,9 +374,25 @@ roles = roles[-3:]
 
 #######################################################################
 
-# Set the font path
-fpath = os.path.join(os.getcwd(), "NOTO_SANS_JP/NotoSansJP-Regular.otf")
-prop = fm.FontProperties(fname=fpath)
+# Get the current working directory
+current_dir = os.getcwd()
+
+# Specify the path to the font file relative to the current directory
+font_filename = "Consolas.ttf"
+font_path = os.path.join(current_dir, font_filename)
+
+# Add the font file to the font manager
+fm.fontManager.addfont(font_path)
+
+# Set the default font for matplotlib
+plt.rcParams['font.family'] = fm.fontManager.get_fontconfig_fonts()[0]
+
+# Use the font in your plot or visualization
+plt.title('Your Title', fontproperties=fm.FontProperties(fname=font_path))
+
+
+
+
 
 
 # color for the slices and text

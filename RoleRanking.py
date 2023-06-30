@@ -433,13 +433,13 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.98, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontfamily='Helvetica', color="black"
+    ha="center", fontweight='bold', fontfamily='Arial', color="black"
 )
 
 # add text
 fig.text(
     0.75, 0.93, position + " Template | "+ str(minutes) + " Minutes Played",size=23,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontweight='bold', fontfamily='Arial', color="black"
 )
 
 

@@ -14,6 +14,25 @@ from mplsoccer import PyPizza, add_image, FontManager
 import warnings
 import streamlit as st
 from sklearn import preprocessing
+from streamlit import components.v1 as components
+
+components.html(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    </style>
+    """,
+    height=0,
+)
+
+5. Finally, add the following line after the `components.html()` line to apply the custom CSS file:
+```python
+components.html(
+    """
+    <link rel="stylesheet" href="custom.css">
+    """,
+    height=0,
+)
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)

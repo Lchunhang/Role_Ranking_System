@@ -5,3 +5,8 @@
 body {
     font-family: 'Consolas', monospace;
 }
+
+/* Hide the GitHub icon */
+.github-corner {
+    display: none;
+}

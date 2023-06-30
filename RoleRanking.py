@@ -17,22 +17,6 @@ from sklearn import preprocessing
 from streamlit import components
 
 
-components.html(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Consolas&display=swap');
-    </style>
-    """,
-    height=0,
-)
-
-components.html(
-    """
-    <link rel="stylesheet" href="custom.css">
-    """,
-    height=0,
-)
-
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 pd.options.mode.chained_assignment = None 

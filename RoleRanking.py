@@ -438,7 +438,7 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.98, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontweight='bold', fontfamily='Monaco', color="black"
 )
 
 # add text
@@ -506,22 +506,6 @@ with st.expander("What's Next"):
     -> Documentation on the Metrics Chosen.\n
     Coming Soon.
     ''')
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
 
 
 

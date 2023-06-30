@@ -14,7 +14,8 @@ from mplsoccer import PyPizza, add_image, FontManager
 import warnings
 import streamlit as st
 from sklearn import preprocessing
-from streamlit import components.v1 as components
+from streamlit import components
+
 
 components.html(
     """

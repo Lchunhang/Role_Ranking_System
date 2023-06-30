@@ -305,7 +305,6 @@ def CF_Rating(df):
 
 if not df.empty and 'Position' in df.columns and len(df['Position']) > 0:
     if df['Position'].iloc[0] == 'Centre-Back':
-        @st.cache 
         df = CB_Rating(df)
         df = pd.merge(df, age, on="Player")
         df.rename(columns = {'Minutes Played_y':'Minutes Played'},inplace = True)

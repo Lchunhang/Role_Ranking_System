@@ -477,13 +477,13 @@ fig.text(
 # add text
 fig.text(
     1.2, 0.166, roles[2] +"\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='Consolas', color="black"
+    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
 )
 
 # add text
 fig.text(
     0.745, 0.1, "Note: Top 5 European Leagues Players with 1080+ Minutes Included | Data: Opta | By @chunhang7" ,
-    size=15, ha="center", fontweight='bold', fontfamily='Consolas', color="black"
+    size=15, ha="center", fontweight='bold', fontfamily='Courier New', color="black"
 )
 
 # Display the plot

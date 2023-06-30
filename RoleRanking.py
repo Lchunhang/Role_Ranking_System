@@ -17,12 +17,6 @@ from sklearn import preprocessing
 from streamlit import components
 
 
-font_normal = FontManager('https://raw.githubusercontent.com/google/fonts/main/apache/roboto/'
-                          'Roboto%5Bwdth,wght%5D.ttf')
-
-
-
-
 hide_github_icon = """
 <style>
 .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } 
@@ -439,7 +433,7 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.98, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontproperties=font_normal, color="black"
+    ha="center", fontweight='bold', fontfamily='Helvetica', color="black"
 )
 
 # add text

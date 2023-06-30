@@ -371,6 +371,7 @@ roles = list(df.columns)
 roles = roles[-3:]
 
 #######################################################################
+plt.rcParams["font.family"] = "Consolas"
 
 # color for the slices and text
 slice_colors = ["#42b84a"] * 2 + ["#fbcf00"] * 2 + ["#39a7ab"] * 2

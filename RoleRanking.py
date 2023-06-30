@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from mplsoccer import PyPizza, add_image, FontManager
 import warnings
 import streamlit as st
+from sklearn import preprocessing
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)

@@ -403,11 +403,11 @@ fig, ax = baker.make_pizza(
         edgecolor="black", zorder=3, linewidth=4
     ),                              
     kwargs_params=dict(
-        color="black", fontsize=17,fontweight='bold', fontfamily='Consolas', va="center"
+        color="black", fontsize=17,fontweight='bold',  va="center"
     ),                               
     kwargs_values=dict(
         color="black", fontsize=20,fontweight='bold',
-        fontfamily='Consolas', zorder=3,
+         zorder=3,
         bbox=dict(
             edgecolor="black", facecolor="#FFFFFF",
             boxstyle="round,pad=0.2", lw=2.5
@@ -434,7 +434,7 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.98, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontfamily='Consolas', color="black"
+    ha="center", fontweight='bold', color="black"
 )
 
 # add text

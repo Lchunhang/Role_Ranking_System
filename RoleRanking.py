@@ -16,6 +16,18 @@ import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 
+st.markdown(
+    """
+    <style>
+    @font-face {
+        font-family: 'Consolas';
+        src: url('fonts/consolas.ttf');
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 pd.options.mode.chained_assignment = None 

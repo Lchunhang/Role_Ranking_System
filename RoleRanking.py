@@ -302,7 +302,7 @@ def CF_Rating(df):
     return df  
 
 #######################################################################
-
+@st.cache
 if not df.empty and 'Position' in df.columns and len(df['Position']) > 0:
     if df['Position'].iloc[0] == 'Centre-Back':
         df = CB_Rating(df)

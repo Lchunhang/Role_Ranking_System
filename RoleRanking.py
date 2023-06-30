@@ -202,7 +202,7 @@ def CM_Rating(df):
     df['Passing Value'] = (df['Normalized Central Progressive Passes']*30/100) + (df['Pass Completion %']*35/100) + (df['Outward Distribution Rate']*35/100)
     df['Passing Rank'] = (((df['Passing Value'].rank(pct=True))*99)).astype(int)
 
-    df['Receiving Value'] = (df['Normalized Progressive Passes Received']*35/100) + (df['Half-Space Passes Received Rate']*40/100) + (df['Zone 14 Passes Received Rate']*25/100)
+    df['Receiving Value'] = (df['Normalized Progressive Passes Received']*40/100) + (df['Half-Space Passes Received Rate']*40/100) + (df['Zone 14 Passes Received Rate']*20/100)
     df['Receiving Rank'] = (((df['Receiving Value'].rank(pct=True))*99)).astype(int)
 
     df['Possession Value'] = (df['Central Passes Received Rate']*30/100) + (df['Post-Recovery Passes']*40/100) + (df['Defensive Third Touches Rate']*30/100)
@@ -213,7 +213,7 @@ def CM_Rating(df):
     #Central Midfielder Ratings
     df['Ball-Winning (No.4)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*30/100) + (df['Sweeping Value']*27/100) + (df['Passing Value']*8/100) + (df['Possession Value']*7/100) + (df['Carrying Value']*5/100) + (df['Receiving Value']*3/100)).round(2)).rank(pct=True))*99).astype(int)
     df['Deep Lying (No.6)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*4/100) + (df['Sweeping Value']*11/100) + (df['Passing Value']*29/100) + (df['Possession Value']*29/100) + (df['Carrying Value']*3/100) + (df['Receiving Value']*4/100)).round(2)).rank(pct=True))*99).astype(int)
-    df['Box-to-Box (No.8)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*14/100) + (df['Sweeping Value']*4/100) + (df['Passing Value']*10/100) + (df['Possession Value']*3/100) + (df['Carrying Value']*25/100) + (df['Receiving Value']*24/100)).round(2)).rank(pct=True))*99).astype(int)
+    df['Box-to-Box (No.8)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*9/100) + (df['Sweeping Value']*2/100) + (df['Passing Value']*10/100) + (df['Possession Value']*2/100) + (df['Carrying Value']*28/100) + (df['Receiving Value']*29/100)).round(2)).rank(pct=True))*99).astype(int)
     
     return df
 

@@ -20,10 +20,10 @@ import matplotlib.font_manager as fm
 
 hide_github_icon = """
 <style>
-.css-1a1tcp, .e1ewe7hr3 { display: none; } 
+.css-1wbqy5l.ejj6ze1 { display: none; } 
 </style>
 """
-#st.markdown(hide_github_icon,unsafe_allow_html=True)
+st.markdown(hide_github_icon,unsafe_allow_html=True)
 
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)

@@ -39,6 +39,7 @@ with st.expander("App Details"):
     ''')
 
 df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/Top5Stats.csv")
+#df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")
 
 #Attributes
 #setting the factors

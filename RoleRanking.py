@@ -38,8 +38,8 @@ with st.expander("App Details"):
     Note: Only Outfielders from Top 5 Leagues with >1080 Minutes Played in 2022/23 Season are Included for Selection.
     ''')
 
-df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/Top5Stats.csv")
-#df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")
+#df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/Top5Stats.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")
 
 #Attributes
 #setting the factors
@@ -499,9 +499,8 @@ with st.expander("Special Thanks"):
     
 with st.expander("What's Next"):
     st.write('''
-    -> Inclusion of Everdise and Primera Liga 2022/23 Season Data.\n
     -> Documentation on the Metrics Chosen.\n
-    Coming Soon.
+    Thank you for the support!
     ''')
 
 

@@ -420,17 +420,17 @@ fig, ax = baker.make_pizza(
 
 # add text
 fig.text(
-    1.4, 1, "Space",size=10, ha="center", fontweight='bold', fontfamily='Consolas', color="none"
+    1.4, 1, "Space",size=10, ha="center", fontweight='bold', color="none"
 )
 
 # add text
 fig.text(
-    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', fontfamily='Consolas', color="none"
+    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', color="none"
 )
 
 # add text
 fig.text(
-    0.095, 1, "Space",size=10, ha="center", fontweight='bold', fontfamily='Consolas', color="none"
+    0.095, 1, "Space",size=10, ha="center", fontweight='bold', color="none"
 )
 
 # add text
@@ -448,44 +448,44 @@ fig.text(
 
 fig.text(
     1.14, 0.78, score1, size=50,
-    ha="left", fontweight='bold', fontfamily='Consolas', color="black",
+    ha="left", fontweight='bold', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
 
 # add text
 fig.text(
     1.2, 0.68, roles[0] + "\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='Consolas', color="black"
+    ha="center", fontweight='bold', color="black"
 )
 
 fig.text(
     1.14, 0.516, score2, size=50,
-    ha="left", fontweight='bold', fontfamily='Courier New', color="black",
+    ha="left", fontweight='bold', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
 
 # add text
 fig.text(
     1.2, 0.417, roles[1] + "\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontweight='bold', color="black"
 )
 
 fig.text(
     1.14, 0.267, score3, size=50,
-    ha="left", fontweight='bold', fontfamily='Courier New', color="black",
+    ha="left", fontweight='bold', color="black",
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3', lw=3)
 )
 
 # add text
 fig.text(
     1.2, 0.166, roles[2] +"\nPercentile Rank" ,size=19,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontweight='bold', color="black"
 )
 
 # add text
 fig.text(
     0.75, 0.1, "Note: Top 5 European Leagues Players with 1080+ Minutes Included | Data: Opta | By @chunhang7" ,
-    size=15, ha="center", fontfamily='Courier New', color="black"
+    size=15, ha="center", color="black"
 )
 
 # Display the plot

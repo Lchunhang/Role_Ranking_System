@@ -38,7 +38,6 @@ with st.expander("App Details"):
     Note: Only Outfielders from Top 5 Leagues with >1080 Minutes Played in 2022/23 Season are Included for Selection.
     ''')
 
-#df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/Top5Stats.csv")
 df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")
 
 df = df.loc[~(df['Position'] == 'Goalkeeper')]

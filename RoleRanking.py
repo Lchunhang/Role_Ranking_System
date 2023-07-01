@@ -41,6 +41,8 @@ with st.expander("App Details"):
 #df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/Top5Stats.csv")
 df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")
 
+df = df.loc[~(df['Position'] == 'Goalkeeper')]
+
 #Attributes
 #setting the factors
 df['Minutes Normalized'] = ((df['Starts'] * 90  / df['Matches Played'] * 90) * df['Minutes Played'])

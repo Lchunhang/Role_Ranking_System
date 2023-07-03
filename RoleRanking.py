@@ -35,7 +35,7 @@ st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">By Ch
 with st.expander("App Details"):
     st.write('''
     The Role Ranking System Assigns Varrying Weightages to Different Metrics Based on Their Relevance to Specific Roles, Reflecting the Author's Perspective Backed by Extensive Research.\n
-    Note: Only Outfielders from Top 5 Leagues with >1080 Minutes Played in 2022/23 Season are Included for Selection.
+    Note: Only Outfielders from Top 7 Leagues with >1080 Minutes Played in 2022/23 Season are Included for Selection.
     ''')
 
 df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")

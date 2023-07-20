@@ -359,7 +359,46 @@ if not df.empty and 'Position' in df.columns and len(df['Position']) > 0:
         df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Passing Rank','Carrying Rank','Receiving Rank','Shooting Rank','Aerial Rank','Advanced Forward','Pressing Forward','Deep-Lying Forward']]
 
 #######################################################################
-        
+#Find Similar Players
+df1 = df[['Player', 'Age'] + list(df.columns[6:12])]
+
+# Convert the data in columns 6 to 12 to numeric values (if they are not already)
+df1[df1.columns[2:]] = df1[df1.columns[2:]].apply(pd.to_numeric)
+
+# Normalize the data using z-score scaling (standardization)
+scaler = StandardScaler()
+normalized_data = scaler.fit_transform(df1[df1.columns[2:]])
+
+# Apply K-means clustering
+num_clusters = 25  # You can choose the number of clusters based on your requirements
+kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
+clusters = kmeans.fit_predict(normalized_data)
+
+# Add cluster labels to the DataFrame
+df1['Cluster'] = clusters
+
+# Find the cluster of the selected player
+selected_player_cluster = df1.loc[df1['Player'] == player, 'Cluster'].values[0]
+
+# Get players in the same cluster as the selected player
+similar_players = df1[df1['Cluster'] == selected_player_cluster]
+
+# Check if the selected player exists in the cluster
+if player in similar_players['Player'].values:
+    # Extract the selected player's stats
+    selected_player_stats = similar_players[similar_players['Player'] == player].iloc[0, 2:-1].values.astype(float)
+
+    # Calculate the Euclidean distance of each player in the cluster from the selected player
+    distances = np.linalg.norm(similar_players[similar_players.columns[2:-1]].values - selected_player_stats, axis=1)
+
+    # Sort the players by distance (similarity) and select the top 5 most similar players
+    top_5_indices = distances.argsort()[1:6]  # Exclude the selected player itself
+    top_5_similar_players = similar_players.iloc[top_5_indices]
+
+Most_Similar = top_5_similar_players['Player'].values[0]
+Age = top_5_similar_players['Age'].values[0]
+
+#######################################################################
 #Filter for player
 df = df.loc[(df['Player'] == player)].reset_index(drop= True)
 
@@ -436,29 +475,36 @@ fig, ax = baker.make_pizza(
 
 # add text
 fig.text(
-    1.4, 1, "Space",size=10, ha="center", fontweight='bold', color="none"
+    1.4, 1.04, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
 )
 
 # add text
 fig.text(
-    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', color="none"
+    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
 )
 
 # add text
 fig.text(
-    0.095, 1, "Space",size=10, ha="center", fontweight='bold', color="none"
+    0.095, 1, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
 )
 
 # add text
 fig.text(
-    0.75, 0.98, player + ", " + str(age) + " - " + team,size=32, fontfamily='DejaVu Sans',
-    ha="center", fontweight='bold', color="black"
+    0.75, 1.01, player + ", " + str(age) + " - " + team,size=32,
+    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
 )
 
 # add text
 fig.text(
-    0.75, 0.93, position + " Template | "+ str(minutes) + " Minutes Played",size=23, fontfamily='DejaVu Sans',
-    ha="center", color="black"
+    0.75, 0.96, position + " Template | "+ str(minutes) + " Minutes Played",size=23,
+    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+)
+
+
+# add text
+fig.text(
+    0.75, 0.91, "Most Similar Player: " + Most_Similar + ", "+ str(Age) ,size=20,
+    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
 )
 
 

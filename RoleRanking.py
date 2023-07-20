@@ -501,14 +501,14 @@ fig.text(
 # add text
 fig.text(
     0.75, 0.96, position + " Template | "+ str(minutes) + " Minutes Played",size=23,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontfamily='Courier New', color="black"
 )
 
 
 # add text
 fig.text(
     0.75, 0.91, "Most Similar Player: " + Most_Similar + ", "+ str(Age) ,size=20,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontfamily='Courier New', color="black"
 )
 
 

@@ -566,7 +566,9 @@ with st.expander("Special Thanks"):
     
 with st.expander("What's Next"):
     st.write('''
-    -> Documentation on the Metrics Chosen.\n
+    -> Similarity Function\n
+    -> Comparing Feature\n
+    -> Goalkeeper Ranking System\n
     Thank you for the support!
     ''')
 

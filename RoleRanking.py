@@ -479,36 +479,36 @@ fig, ax = baker.make_pizza(
 
 # add text
 fig.text(
-    1.4, 1.04, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
+    1.4, 1.04, "Space",size=10, ha="center", fontweight='bold', color="none"
 )
 
 # add text
 fig.text(
-    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
+    1.4, 0.09, "Space",size=10, ha="center", fontweight='bold', color="none"
 )
 
 # add text
 fig.text(
-    0.095, 1, "Space",size=10, ha="center", fontweight='bold', fontfamily='Courier New', color="none"
+    0.095, 1, "Space",size=10, ha="center", fontweight='bold',color="none"
 )
 
 # add text
 fig.text(
     0.75, 1.01, player + ", " + str(age) + " - " + team,size=32,
-    ha="center", fontweight='bold', fontfamily='Courier New', color="black"
+    ha="center", fontweight='bold',  color="black"
 )
 
 # add text
 fig.text(
     0.75, 0.96, position + " Template | "+ str(minutes) + " Minutes Played",size=23,
-    ha="center", fontfamily='Courier New', color="black"
+    ha="center",  color="black"
 )
 
 
 # add text
 fig.text(
     0.75, 0.91, "Most Similar Player: " + Most_Similar + ", "+ str(Age) ,size=20,
-    ha="center", fontfamily='Courier New', color="black"
+    ha="center", color="black"
 )
 
 

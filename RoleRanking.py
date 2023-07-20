@@ -17,6 +17,10 @@ from streamlit import components
 import os
 import matplotlib.font_manager as fm
 
+import math
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
 hide_github_icon = """
 <style>
 .css-1wbqy5l.ejj6ze1 { display: none; } 

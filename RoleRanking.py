@@ -559,7 +559,7 @@ fig.text(
 # Display the plot
 st.pyplot(fig)
 
-st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;"> Top 7 Most Similar Players', unsafe_allow_html=True)
+st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">Similar Players to' + player, unsafe_allow_html=True)
 st.dataframe(top_7_similar_players)
 
 with st.expander("Special Thanks"):

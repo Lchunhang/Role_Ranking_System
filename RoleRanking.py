@@ -202,7 +202,7 @@ if player in similar_players['Player'].values:
 top_7_similar_players = top_7_similar_players.iloc[:, :3].reset_index(drop=True)
 top_7_similar_players = pd.merge(top_7_similar_players, age, on="Player")
 
-#top_7_similar_players = top_7_similar_players[['Player','Age','Squad','Minutes Played']]
+top_7_similar_players = top_7_similar_players[['Player','Age','Squad','Minutes Played']]
 top_7_similar_players.index += 1
 Most_Similar = top_7_similar_players['Player'].values[0]
 Age = top_7_similar_players['Age'].values[0]

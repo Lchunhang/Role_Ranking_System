@@ -401,6 +401,8 @@ if player in similar_players['Player'].values:
 
 Most_Similar = top_7_similar_players['Player'].values[0]
 Age = top_7_similar_players['Age'].values[0]
+top_7_similar_players = top_7_similar_players.iloc[:, :7].reset_index(drop=True)
+top_7_similar_players.index += 1
 
 #######################################################################
 #Filter for player
@@ -572,5 +574,6 @@ with st.expander("What's Next"):
     Thank you for the support!
     ''')
 
+st.dataframe(top_7_similar_players)
 
 

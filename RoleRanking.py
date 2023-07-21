@@ -38,7 +38,8 @@ st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">By Ch
 
 with st.expander("App Details"):
     st.write('''
-    The Role Ranking System Assigns Varrying Weightages to Different Metrics Based on Their Relevance to Specific Roles, Reflecting the Author's Perspective Backed by Extensive Research.\n
+    The Role Ranking System Assigns Varrying Weightages to Different Metrics Based on Their Relevance to Specific Roles, Reflecting the Author's Perspective Backed by Extensive Research.\n 
+    Similarity Function Based on K-Means Clustering to Identify Similar Players Based on Playstyle.\n
     Note: Only Outfielders from Top 7 Leagues with >1080 Minutes Played in 2022/23 Season are Included for Selection.
     ''')
 
@@ -559,24 +560,20 @@ fig.text(
 # Display the plot
 st.pyplot(fig)
 
-st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">Similar Players to' + player, unsafe_allow_html=True)
+st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">Similar Players to ' + player, unsafe_allow_html=True)
 st.dataframe(top_7_similar_players)
+
+with st.expander("What's Next"):
+    st.write('''
+    -> Similarity Function\n
+    -> Comparing Feature\n
+    -> Goalkeeper Ranking System
+    ''')
 
 with st.expander("Special Thanks"):
     st.write('''
     Player Ratings Was Originally Inspired by Scott Willis (@scottjwillis), Liam Henshaw (@HenshawAnalysis) & Andy Watson (@andywatsonsport).\n
     Ben Griffis (@BeGriffis) was Kind Enough to Share His Previous Work for Me to Draw Inspiration From.\n
-    Joel A. Adejola (@joeladejola), Anuraag Kulkarni (@Anuraag027) , Rahul (@exceedingxpuns), Yusuf Raihan (@myusufraihan) & Daryl Dao (@dgouilard) For Their Thought-provoking Review on the Metrics Applied Here.
-    ''')
-    
-with st.expander("What's Next"):
-    st.write('''
-    -> Similarity Function\n
-    -> Comparing Feature\n
-    -> Goalkeeper Ranking System\n
+    Joel A. Adejola (@joeladejola), Anuraag Kulkarni (@Anuraag027) , Rahul (@exceedingxpuns), Yusuf Raihan (@myusufraihan) & Daryl Dao (@dgouilard) For Their Thought-provoking Review on the Metrics Applied Here.\n
     Thank you for the support!
     ''')
-
-
-
-

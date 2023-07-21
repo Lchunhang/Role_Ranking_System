@@ -573,8 +573,8 @@ with st.expander("What's Next"):
 
 with st.expander("Special Thanks"):
     st.write('''
-    Player Ratings Was Originally Inspired by Scott Willis (@scottjwillis), Liam Henshaw (@HenshawAnalysis) & Andy Watson (@andywatsonsport).\n
-    Ben Griffis (@BeGriffis) was Kind Enough to Share His Previous Work for Me to Draw Inspiration From.\n
-    Joel A. Adejola (@joeladejola), Anuraag Kulkarni (@Anuraag027) , Rahul (@exceedingxpuns), Yusuf Raihan (@myusufraihan) & Daryl Dao (@dgouilard) For Their Thought-provoking Review on the Metrics Applied Here.\n
+    Player Ratings was originally inspired by Scott Willis (@scottjwillis), Liam Henshaw (@HenshawAnalysis) & Andy Watson (@andywatsonsport).\n
+    Ben Griffis (@BeGriffis) was kind enough to share his previous work for me to draw Inspiration.\n
+    Joel A. Adejola (@joeladejola), Anuraag Kulkarni (@Anuraag027) , Rahul (@exceedingxpuns), Yusuf Raihan (@myusufraihan) & Daryl Dao (@dgouilard) for their thought-provoking review on the metrics applied here.\n
     Thank you for the support!
     ''')

@@ -559,6 +559,9 @@ fig.text(
 # Display the plot
 st.pyplot(fig)
 
+st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;"> Top 7 Most Similar Players', unsafe_allow_html=True)
+st.dataframe(top_7_similar_players)
+
 with st.expander("Special Thanks"):
     st.write('''
     Player Ratings Was Originally Inspired by Scott Willis (@scottjwillis), Liam Henshaw (@HenshawAnalysis) & Andy Watson (@andywatsonsport).\n
@@ -574,6 +577,6 @@ with st.expander("What's Next"):
     Thank you for the support!
     ''')
 
-st.dataframe(top_7_similar_players)
+
 
 

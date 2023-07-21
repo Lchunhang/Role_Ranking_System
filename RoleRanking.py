@@ -153,7 +153,7 @@ df[numeric_cols] = pd.DataFrame(x_scaled)
 #######################################################################
 
 #Similarity Function
-sdf = df[['Player','Squad', 'League',
+sdf = df[['Player','Squad', 'League', 'True Position',
 'Shot-Ending Carries per Touch', 'Shots on Target %', 'npxG per Shot', 'NpG-xG',
 'Aerial Duels Won', 'Aerial Duels Won %',
 'Shot-Creating Actions', 'xA', 'Normalized Key Passes', 'Cutbacks', 
@@ -167,7 +167,7 @@ sdf = sdf.fillna(0)
 
 # Normalize the data using z-score scaling (standardization)
 scaler = StandardScaler()
-normalized_data = scaler.fit_transform(sdf[sdf.columns[3:]])
+normalized_data = scaler.fit_transform(sdf[sdf.columns[4:]])
 
 # Apply K-means clustering
 num_clusters = 3  # You can choose the number of clusters based on your requirements
@@ -187,10 +187,10 @@ similar_players = sdf[sdf['Cluster'] == selected_player_cluster]
 if player in similar_players['Player'].values:
     
     # Extract the selected player's stats
-    selected_player_stats = similar_players[similar_players['Player'] == player].iloc[0, 3:-1].values.astype(float)
+    selected_player_stats = similar_players[similar_players['Player'] == player].iloc[0, 4:-1].values.astype(float)
 
     # Calculate the Euclidean distance of each player in the cluster from the selected player
-    distances = np.linalg.norm(similar_players[similar_players.columns[3:-1]].values - selected_player_stats, axis=1)
+    distances = np.linalg.norm(similar_players[similar_players.columns[4:-1]].values - selected_player_stats, axis=1)
 
     # Add the 'Distance' column to the DataFrame
     similar_players['Distance'] = distances
@@ -199,10 +199,11 @@ if player in similar_players['Player'].values:
     top_7_indices = distances.argsort()[1:8]  # Exclude the selected player itself
     top_7_similar_players = similar_players.iloc[top_7_indices]
 
-top_7_similar_players = top_7_similar_players.iloc[:, :3].reset_index(drop=True)
+top_7_similar_players = top_7_similar_players.iloc[:, :4].reset_index(drop=True)
 top_7_similar_players = pd.merge(top_7_similar_players, age, on="Player")
 
-top_7_similar_players = top_7_similar_players[['Player','Age','Squad','League','Minutes Played']]
+top_7_similar_players = top_7_similar_players[['Player','Age','True Position','Squad','League','Minutes Played']]
+top_7_similar_players.rename(columns = {'True Position':'Main Position'},inplace = True)
 top_7_similar_players.index += 1
 Most_Similar = top_7_similar_players['Player'].values[0]
 Age = top_7_similar_players['Age'].values[0]

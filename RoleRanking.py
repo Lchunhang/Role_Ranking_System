@@ -26,13 +26,17 @@ hide_github_icon = """
 """
 st.markdown(hide_github_icon,unsafe_allow_html=True)
 
-hide_streamlit_style = “”"
-
+hide_streamlit_style = """
+<style>
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
+</style>
 
-“”"
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+
+
+
 #Remove Warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 pd.options.mode.chained_assignment = None 

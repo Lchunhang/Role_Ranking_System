@@ -16,8 +16,6 @@ from sklearn import preprocessing
 from streamlit import components
 import os
 import matplotlib.font_manager as fm
-
-import math
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
@@ -110,7 +108,6 @@ df['Normalized Key Passes'] = df['Key Passes'] / df['Passes Completed']
 #Shooting
 df['Shot-Ending Carries per Touch'] = df['Shot-Ending Carries'] / df['Live Touches']
 
-
 #######################################################################
 
 with st.sidebar:
@@ -138,7 +135,6 @@ with st.sidebar:
     st.write(position+" Template")
     st.markdown('<h1 style="font-family: Consolas; font-size: 34px;">..And Let The Magic Happen ➡️</h1>', unsafe_allow_html=True)
 
-
 #Extract age, ready to merge
 age = df[['Player','True Age', 'Minutes Played']]
 age.rename(columns = {'True Age':'Age'},inplace = True)
@@ -154,6 +150,62 @@ x_scaled = min_max_scaler.fit_transform(x)
 x_scaled = x_scaled *100
 df[numeric_cols] = pd.DataFrame(x_scaled)
 
+#######################################################################
+
+#Similarity Function
+sdf = df[['Player','Squad', 'League',
+'Shot-Ending Carries per Touch', 'Shots on Target %', 'npxG per Shot', 'NpG-xG',
+'Aerial Duels Won', 'Aerial Duels Won %',
+'Shot-Creating Actions', 'xA', 'Normalized Key Passes', 'Cutbacks', 
+'Passes Received Rate', 'Central Passes Received Rate', 'Defensive Third Touches Rate', 'Carries Inwards per Touch', 'Post-Recovery Passes', 'Normalized Progressive Passes Received','Half-Space Passes Received Rate', 'Zone 14 Passes Received Rate', 'Wide Passes Received Rate',
+'Normalized Att Pen Touches', 'Normalized Progressive Passes', 'Normalized Central Progressive Passes', 'Normalized Completed Passes', 'Normalized Crosses', 'Outward Distribution Rate', 'Normalized Half Space Passes', 'Pass Completion %',
+'Progressive Carries per Touch', 'Successful Dribbles per Touch', 'Successful Dribbles %', 'Wide Progressive Carries per Touch', 'Central Progressive Carries per Touch', 'Chance Creating Carries per Touch', 
+'Clearances per Oppo Touch', 'Recoveries per Oppo Touch', 'Blocks per Oppo Touch',         
+'True Tackles per Oppo Touch', 'True Tackles Win Rate', 'Interceptions per Oppo Touch','1v1 Tackles per Oppo Touch', 'True Interceptions per Oppo Touch', 'Att 3rd Tackles per Oppo Def 3rd Touch']]
+
+sdf = sdf.fillna(0)
+
+# Normalize the data using z-score scaling (standardization)
+scaler = StandardScaler()
+normalized_data = scaler.fit_transform(sdf[sdf.columns[3:]])
+
+# Apply K-means clustering
+num_clusters = 3  # You can choose the number of clusters based on your requirements
+kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
+clusters = kmeans.fit_predict(normalized_data)
+
+# Add cluster labels to the DataFrame
+sdf['Cluster'] = clusters
+
+# Find the cluster of the selected player
+selected_player_cluster = sdf.loc[sdf['Player'] == player, 'Cluster'].values[0]
+
+# Get players in the same cluster as the selected player
+similar_players = sdf[sdf['Cluster'] == selected_player_cluster]
+
+# Check if the selected player exists in the cluster
+if player in similar_players['Player'].values:
+    
+    # Extract the selected player's stats
+    selected_player_stats = similar_players[similar_players['Player'] == player].iloc[0, 3:-1].values.astype(float)
+
+    # Calculate the Euclidean distance of each player in the cluster from the selected player
+    distances = np.linalg.norm(similar_players[similar_players.columns[3:-1]].values - selected_player_stats, axis=1)
+
+    # Add the 'Distance' column to the DataFrame
+    similar_players['Distance'] = distances
+
+    # Sort the players by distance (similarity) and select the top 5 most similar players
+    top_7_indices = distances.argsort()[1:8]  # Exclude the selected player itself
+    top_7_similar_players = similar_players.iloc[top_7_indices]
+
+top_7_similar_players = top_7_similar_players.iloc[:, :3].reset_index(drop=True)
+top_7_similar_players = pd.merge(top_7_similar_players, age, on="Player")
+
+#top_7_similar_players = top_7_similar_players[['Player','Age','Squad','Minutes Played']]
+top_7_similar_players.index += 1
+Most_Similar = top_7_similar_players['Player'].values[0]
+Age = top_7_similar_players['Age'].values[0]
 
 #######################################################################
 
@@ -365,48 +417,7 @@ if not df.empty and 'Position' in df.columns and len(df['Position']) > 0:
         df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Passing Rank','Carrying Rank','Receiving Rank','Shooting Rank','Aerial Rank','Advanced Forward','Pressing Forward','Deep-Lying Forward']]
 
 #######################################################################
-#Find Similar Players
-df1 = df[['Player', 'Age'] + list(df.columns[6:12])]
 
-# Convert the data in columns 6 to 12 to numeric values (if they are not already)
-df1[df1.columns[2:]] = df1[df1.columns[2:]].apply(pd.to_numeric)
-
-# Normalize the data using z-score scaling (standardization)
-scaler = StandardScaler()
-normalized_data = scaler.fit_transform(df1[df1.columns[2:]])
-
-# Apply K-means clustering
-num_clusters = 3  # You can choose the number of clusters based on your requirements
-kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
-clusters = kmeans.fit_predict(normalized_data)
-
-# Add cluster labels to the DataFrame
-df1['Cluster'] = clusters
-
-# Find the cluster of the selected player
-selected_player_cluster = df1.loc[df1['Player'] == player, 'Cluster'].values[0]
-
-# Get players in the same cluster as the selected player
-similar_players = df1[df1['Cluster'] == selected_player_cluster]
-
-# Check if the selected player exists in the cluster
-if player in similar_players['Player'].values:
-    # Extract the selected player's stats
-    selected_player_stats = similar_players[similar_players['Player'] == player].iloc[0, 2:-1].values.astype(float)
-
-    # Calculate the Euclidean distance of each player in the cluster from the selected player
-    distances = np.linalg.norm(similar_players[similar_players.columns[2:-1]].values - selected_player_stats, axis=1)
-
-    # Sort the players by distance (similarity) and select the top 5 most similar players
-    top_7_indices = distances.argsort()[1:8]  # Exclude the selected player itself
-    top_7_similar_players = similar_players.iloc[top_7_indices]
-
-Most_Similar = top_7_similar_players['Player'].values[0]
-Age = top_7_similar_players['Age'].values[0]
-top_7_similar_players = top_7_similar_players.iloc[:, :8].reset_index(drop=True)
-top_7_similar_players.index += 1
-
-#######################################################################
 #Filter for player
 df = df.loc[(df['Player'] == player)].reset_index(drop= True)
 
@@ -561,8 +572,8 @@ fig.text(
 # Display the plot
 st.pyplot(fig)
 
-#st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">Similar Players to ' + player, unsafe_allow_html=True)
-#st.dataframe(top_7_similar_players)
+st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">Similar Players to ' + player, unsafe_allow_html=True)
+st.dataframe(top_7_similar_players)
 
 with st.expander("What's Next"):
     st.write('''

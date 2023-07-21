@@ -19,8 +19,7 @@ import matplotlib.font_manager as fm
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-hide_github_icon = 
-"""
+hide_github_icon = """
 <style>
 .css-1wbqy5l.ejj6ze1 { display: none; } 
 </style>

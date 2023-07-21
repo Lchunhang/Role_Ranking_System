@@ -374,7 +374,7 @@ scaler = StandardScaler()
 normalized_data = scaler.fit_transform(df1[df1.columns[2:]])
 
 # Apply K-means clustering
-num_clusters = 10  # You can choose the number of clusters based on your requirements
+num_clusters = 3  # You can choose the number of clusters based on your requirements
 kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
 clusters = kmeans.fit_predict(normalized_data)
 
@@ -396,11 +396,11 @@ if player in similar_players['Player'].values:
     distances = np.linalg.norm(similar_players[similar_players.columns[2:-1]].values - selected_player_stats, axis=1)
 
     # Sort the players by distance (similarity) and select the top 5 most similar players
-    top_5_indices = distances.argsort()[1:6]  # Exclude the selected player itself
-    top_5_similar_players = similar_players.iloc[top_5_indices]
+    top_7_indices = distances.argsort()[1:8]  # Exclude the selected player itself
+    top_7_similar_players = similar_players.iloc[top_7_indices]
 
-Most_Similar = top_5_similar_players['Player'].values[0]
-Age = top_5_similar_players['Age'].values[0]
+Most_Similar = top_7_similar_players['Player'].values[0]
+Age = top_7_similar_players['Age'].values[0]
 
 #######################################################################
 #Filter for player

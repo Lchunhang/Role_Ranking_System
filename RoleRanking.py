@@ -377,7 +377,7 @@ scaler = StandardScaler()
 normalized_data = scaler.fit_transform(sdf[sdf.columns[7:]])
 
 # Apply K-means clustering
-num_clusters = 3 # You can choose the number of clusters based on your requirements
+num_clusters = 4 # You can choose the number of clusters based on your requirements
 kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
 clusters = kmeans.fit_predict(normalized_data)
 

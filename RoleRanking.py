@@ -378,7 +378,8 @@ normalized_data = scaler.fit_transform(sdf[sdf.columns[7:]])
 
 # Apply K-means clustering
 num_clusters = 5 # You can choose the number of clusters based on your requirements
-kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
+#kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
+kmeans = KMeans(n_clusters=num_clusters, n_init='auto')
 clusters = kmeans.fit_predict(normalized_data)
 
 # Add cluster labels to the DataFrame

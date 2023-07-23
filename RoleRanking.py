@@ -161,66 +161,8 @@ df[numeric_cols] = pd.DataFrame(x_scaled)
 
 #######################################################################
 
-#Similarity Function
-sdf = df[['Player','Squad', 'League', 'True Position',
-'Shot-Ending Carries per Touch', 'Shots on Target %', 'npxG per Shot', 'NpG-xG',
-'Aerial Duels Won', 'Aerial Duels Won %',
-'Shot-Creating Actions', 'xA', 'Normalized Key Passes', 'Cutbacks', 
-'Passes Received Rate', 'Central Passes Received Rate', 'Defensive Third Touches Rate', 'Carries Inwards per Touch', 'Post-Recovery Passes', 'Normalized Progressive Passes Received','Half-Space Passes Received Rate', 'Zone 14 Passes Received Rate', 'Wide Passes Received Rate',
-'Normalized Att Pen Touches', 'Normalized Progressive Passes', 'Normalized Central Progressive Passes', 'Normalized Completed Passes', 'Normalized Crosses', 'Outward Distribution Rate', 'Normalized Half Space Passes', 'Pass Completion %',
-'Progressive Carries per Touch', 'Successful Dribbles per Touch', 'Successful Dribbles %', 'Wide Progressive Carries per Touch', 'Central Progressive Carries per Touch', 'Chance Creating Carries per Touch', 
-'Clearances per Oppo Touch', 'Recoveries per Oppo Touch', 'Blocks per Oppo Touch',         
-'True Tackles per Oppo Touch', 'True Tackles Win Rate', 'Interceptions per Oppo Touch','1v1 Tackles per Oppo Touch', 'True Interceptions per Oppo Touch', 'Att 3rd Tackles per Oppo Def 3rd Touch']]
-
-sdf = sdf.fillna(0)
-
-# Normalize the data using z-score scaling (standardization)
-scaler = StandardScaler()
-normalized_data = scaler.fit_transform(sdf[sdf.columns[4:]])
-
-# Apply K-means clustering
-num_clusters = 4  # You can choose the number of clusters based on your requirements
-kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
-clusters = kmeans.fit_predict(normalized_data)
-
-# Add cluster labels to the DataFrame
-sdf['Cluster'] = clusters
-
-# Find the cluster of the selected player
-selected_player_cluster = sdf.loc[sdf['Player'] == player, 'Cluster'].values[0]
-
-# Get players in the same cluster as the selected player
-similar_players = sdf[sdf['Cluster'] == selected_player_cluster]
-
-# Check if the selected player exists in the cluster
-if player in similar_players['Player'].values:
-    
-    # Extract the selected player's stats
-    selected_player_stats = similar_players[similar_players['Player'] == player].iloc[0, 4:-1].values.astype(float)
-
-    # Calculate the Euclidean distance of each player in the cluster from the selected player
-    distances = np.linalg.norm(similar_players[similar_players.columns[4:-1]].values - selected_player_stats, axis=1)
-
-    # Add the 'Distance' column to the DataFrame
-    similar_players['Distance'] = distances
-
-    # Sort the players by distance (similarity) and select the top 5 most similar players
-    top_7_indices = distances.argsort()[1:8]  # Exclude the selected player itself
-    top_7_similar_players = similar_players.iloc[top_7_indices]
-
-top_7_similar_players = top_7_similar_players.iloc[:, :4].reset_index(drop=True)
-top_7_similar_players = pd.merge(top_7_similar_players, age, on="Player")
-
-top_7_similar_players = top_7_similar_players[['Player','Age','True Position','Squad','League','Minutes Played']]
-top_7_similar_players.rename(columns = {'True Position':'Main Position'},inplace = True)
-top_7_similar_players.index += 1
-Most_Similar = top_7_similar_players['Player'].values[0]
-Age = top_7_similar_players['Age'].values[0]
-
-#######################################################################
-
 def CB_Rating(df):
-    df['Ball Winning Value'] = (df['True Tackles Win Rate']*35/100) + (df['Interceptions per Oppo Touch']*45/100) + (df['1v1 Tackles per Oppo Touch']*20/100) 
+    df['Ball Winning Value'] = (df['True Tackles Win Rate']*35/100) + (df['Interceptions per Oppo Touch']*45/100) + (df['True Tackles per Oppo Touch']*20/100) 
     df['Ball Winning Rank'] = (((df['Ball Winning Value'].rank(pct=True))*99)).astype(int)
 
     df['Sweeping Value'] = (df['Blocks per Oppo Touch']*35/100) + (df['Recoveries per Oppo Touch']*30/100) + (df['Clearances per Oppo Touch']*35/100)
@@ -229,41 +171,41 @@ def CB_Rating(df):
     df['Carrying Value'] = (df['Progressive Carries per Touch']*50/100) + (df['Successful Dribbles per Touch']*30/100) + (df['Successful Dribbles %']*20/100)
     df['Carrying Rank'] = (((df['Carrying Value'].rank(pct=True))*99)).astype(int)
 
-    df['Passing Value'] = (df['Normalized Progressive Passes']*40/100) + (df['Normalized Completed Passes']*30/100) + (df['Pass Completion %']*30/100)
+    df['Passing Value'] = (df['Normalized Progressive Passes']*30/100) + (df['Normalized Completed Passes']*40/100) + (df['Pass Completion %']*30/100)
     df['Passing Rank'] = (((df['Passing Value'].rank(pct=True))*99)).astype(int)
 
     df['Possession Value'] = (df['Central Passes Received Rate']*30/100) + (df['Post-Recovery Passes']*35/100) + (df['Passes Received Rate']*35/100)
     df['Possession Rank'] = (((df['Possession Value'].rank(pct=True))*99)).astype(int)
 
-    df['Aerial Value'] = (df['Aerial Duels Won']*60/100) + (df['Aerial Duels Won %']*40/100)
+    df['Aerial Value'] = (df['Successful Defensive Aerials']*75/100) + (df['Aerial Duels Won %']*10/100) + (df['Successful Offensive Aerials']*15/100)
     df['Aerial Rank'] = (((df['Aerial Value'].rank(pct=True))*99)).astype(int)
 
     df['Minutes Normalized'] = (((df['Minutes Normalized'].rank(pct=True))*99)).astype(int)
     
     #Centre-Back Ratings
-    df['Ball-Playing CB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*5/100) + (df['Sweeping Value']*6/100) + (df['Passing Value']*30/100) + (df['Possession Value']*30/100) + (df['Carrying Value']*5/100) + (df['Aerial Value']*4/100)).round(2).rank(pct=True))*99)).astype(int)
-    df['No-Nonsense CB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*27/100) + (df['Sweeping Value']*27/100) + (df['Passing Value']*3/100) + (df['Possession Value']*5/100) + (df['Carrying Value']*3/100) + (df['Aerial Value']*15/100)).round(2).rank(pct=True))*99)).astype(int)
-    df['Wide CB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*22/100) + (df['Sweeping Value']*3/100) + (df['Passing Value']*14/100) + (df['Possession Value']*8/100) + (df['Carrying Value']*30/100) + (df['Aerial Value']*3/100)).round(2).rank(pct=True))*99)).astype(int)
+    df['Ball-Playing CB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*10/100) + (df['Sweeping Value']*10/100) + (df['Passing Value']*27/100) + (df['Possession Value']*21/100) + (df['Carrying Value']*3/100) + (df['Aerial Value']*9/100)).round(2).rank(pct=True))*99)).astype(int)
+    df['No-Nonsense CB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*27/100) + (df['Sweeping Value']*29/100) + (df['Passing Value']*2/100) + (df['Possession Value']*3/100) + (df['Carrying Value']*1/100) + (df['Aerial Value']*18/100)).round(2).rank(pct=True))*99)).astype(int)
+    df['Wide CB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*22/100) + (df['Sweeping Value']*7/100) + (df['Passing Value']*8/100) + (df['Possession Value']*2/100) + (df['Carrying Value']*32/100) + (df['Aerial Value']*9/100)).round(2).rank(pct=True))*99)).astype(int)
 
     return df
 
 def FB_Rating(df):
-    df['Ball Winning Value'] = (df['True Tackles Win Rate']*40/100) + (df['Interceptions per Oppo Touch']*20/100) + (df['1v1 Tackles per Oppo Touch']*40/100) 
+    df['Ball Winning Value'] = (df['True Tackles Win Rate']*45/100) + (df['Interceptions per Oppo Touch']*30/100) + (df['True Tackles per Oppo Touch']*25/100) 
     df['Ball Winning Rank'] = (((df['Ball Winning Value'].rank(pct=True))*99)).astype(int)
 
-    df['Sweeping Value'] = (df['Blocks per Oppo Touch']*40/100) + (df['Recoveries per Oppo Touch']*20/100) + (df['Clearances per Oppo Touch']*40/100)
+    df['Sweeping Value'] = (df['Blocks per Oppo Touch']*35/100) + (df['Successful Defensive Aerials']*25/100) + (df['Clearances per Oppo Touch']*40/100)
     df['Sweeping Rank'] = (((df['Sweeping Value'].rank(pct=True))*99)).astype(int)
 
     df['Carrying Value'] = (df['Wide Progressive Carries per Touch']*30/100) + (df['Successful Dribbles per Touch']*40/100) + (df['Chance Creating Carries per Touch']*30/100)
     df['Carrying Rank'] = (((df['Carrying Value'].rank(pct=True))*99)).astype(int)
 
-    df['Passing Value'] = (df['Normalized Progressive Passes']*40/100) + (df['Normalized Crosses']*25/100) + (df['Outward Distribution Rate']*35/100)
+    df['Passing Value'] = (df['Normalized Progressive Passes']*30/100) + (df['Normalized Crosses']*25/100) + (df['Outward Distribution Rate']*45/100)
     df['Passing Rank'] = (((df['Passing Value'].rank(pct=True))*99)).astype(int)
 
     df['Creation Value'] = (df['Cutbacks']*45/100) + (df['Normalized Expected Assists']*30/100) + (df['Shot-Creating Actions']*25/100)
     df['Creation Rank'] = (((df['Creation Value'].rank(pct=True))*99)).astype(int)
 
-    df['Possession Value'] = (df['Central Passes Received Rate']*30/100) + (df['Post-Recovery Passes']*20/100) + (df['Carries Inwards per Touch']*50/100)
+    df['Possession Value'] = (df['Central Passes Received Rate']*50/100) + (df['Post-Recovery Passes']*25/100) + (df['Carries Inwards per Touch']*25/100)
     df['Possession Rank'] = (((df['Possession Value'].rank(pct=True))*99)).astype(int)
 
     df['Minutes Normalized'] = (((df['Minutes Normalized'].rank(pct=True))*99)).astype(int)
@@ -271,7 +213,7 @@ def FB_Rating(df):
     #Full-Back Ratings
     df['Defensive FB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*30/100) + (df['Sweeping Value']*26/100) + (df['Passing Value']*5/100) + (df['Possession Value']*5/100) + (df['Carrying Value']*10/100) + (df['Creation Value']*3/100)).round(2).rank(pct=True))*99)).astype(int)
     df['Complete WB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*8/100) + (df['Sweeping Value']*4/100) + (df['Passing Value']*10/100) + (df['Possession Value']*7/100) + (df['Carrying Value']*25/100) + (df['Creation Value']*26/100)).round(2).rank(pct=True))*99)).astype(int)
-    df['Inverted FB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*6/100) + (df['Sweeping Value']*10/100) + (df['Passing Value']*26/100) + (df['Possession Value']*28/100) + (df['Carrying Value']*3/100) + (df['Creation Value']*7/100)).round(2).rank(pct=True))*99)).astype(int)
+    df['Inverted FB'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*14/100) + (df['Sweeping Value']*5/100) + (df['Passing Value']*20/100) + (df['Possession Value']*30/100) + (df['Carrying Value']*1/100) + (df['Creation Value']*10/100)).round(2).rank(pct=True))*99)).astype(int)
 
     return df
 
@@ -279,27 +221,27 @@ def CM_Rating(df):
     df['Ball Winning Value'] = (df['True Tackles Win Rate']*30/100) + (df['Interceptions per Oppo Touch']*35/100) + (df['True Tackles per Oppo Touch']*35/100) 
     df['Ball Winning Rank'] = (((df['Ball Winning Value'].rank(pct=True))*99)).astype(int)
 
-    df['Sweeping Value'] = (df['Blocks per Oppo Touch']*30/100) + (df['Recoveries per Oppo Touch']*35/100) + (df['Clearances per Oppo Touch']*35/100)
+    df['Sweeping Value'] = (df['Blocks per Oppo Touch']*25/100) + (df['Successful Defensive Aerials']*45/100) + (df['Clearances per Oppo Touch']*30/100)
     df['Sweeping Rank'] = (((df['Sweeping Value'].rank(pct=True))*99)).astype(int)
 
     df['Carrying Value'] = (df['Central Progressive Carries per Touch']*40/100) + (df['Successful Dribbles per Touch']*25/100) + (df['Chance Creating Carries per Touch']*35/100)
     df['Carrying Rank'] = (((df['Carrying Value'].rank(pct=True))*99)).astype(int)
 
-    df['Passing Value'] = (df['Normalized Central Progressive Passes']*30/100) + (df['Pass Completion %']*35/100) + (df['Outward Distribution Rate']*35/100)
+    df['Passing Value'] = (df['Normalized Central Progressive Passes']*35/100) + (df['Pass Completion %']*35/100) + (df['Normalized Completed Passes']*30/100)
     df['Passing Rank'] = (((df['Passing Value'].rank(pct=True))*99)).astype(int)
 
     df['Receiving Value'] = (df['Normalized Progressive Passes Received']*40/100) + (df['Half-Space Passes Received Rate']*40/100) + (df['Zone 14 Passes Received Rate']*20/100)
     df['Receiving Rank'] = (((df['Receiving Value'].rank(pct=True))*99)).astype(int)
 
-    df['Possession Value'] = (df['Central Passes Received Rate']*30/100) + (df['Post-Recovery Passes']*40/100) + (df['Defensive Third Touches Rate']*30/100)
+    df['Possession Value'] = (df['Central Passes Received Rate']*35/100) + (df['Post-Recovery Passes']*30/100) + (df['Defensive Third Touches Rate']*35/100)
     df['Possession Rank'] = (((df['Possession Value'].rank(pct=True))*99)).astype(int)
 
     df['Minutes Normalized'] = (((df['Minutes Normalized'].rank(pct=True))*99)).astype(int)
     
     #Central Midfielder Ratings
-    df['Ball-Winning (No.4)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*30/100) + (df['Sweeping Value']*27/100) + (df['Passing Value']*8/100) + (df['Possession Value']*7/100) + (df['Carrying Value']*5/100) + (df['Receiving Value']*3/100)).round(2)).rank(pct=True))*99).astype(int)
-    df['Deep Lying (No.6)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*4/100) + (df['Sweeping Value']*11/100) + (df['Passing Value']*29/100) + (df['Possession Value']*29/100) + (df['Carrying Value']*3/100) + (df['Receiving Value']*4/100)).round(2)).rank(pct=True))*99).astype(int)
-    df['Box-to-Box (No.8)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*9/100) + (df['Sweeping Value']*2/100) + (df['Passing Value']*10/100) + (df['Possession Value']*2/100) + (df['Carrying Value']*28/100) + (df['Receiving Value']*29/100)).round(2)).rank(pct=True))*99).astype(int)
+    df['Ball-Winning (No.4)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*29/100) + (df['Sweeping Value']*26/100) + (df['Passing Value']*10/100) + (df['Possession Value']*13/100) + (df['Carrying Value']*1/100) + (df['Receiving Value']*1/100)).round(2)).rank(pct=True))*99).astype(int)
+    df['Deep Lying (No.6)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*4/100) + (df['Sweeping Value']*9/100) + (df['Passing Value']*25/100) + (df['Possession Value']*35/100) + (df['Carrying Value']*6/100) + (df['Receiving Value']*1/100)).round(2)).rank(pct=True))*99).astype(int)
+    df['Box-to-Box (No.8)'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*15/100) + (df['Sweeping Value']*2/100) + (df['Passing Value']*12/100) + (df['Possession Value']*11/100) + (df['Carrying Value']*22/100) + (df['Receiving Value']*18/100)).round(2)).rank(pct=True))*99).astype(int)
     
     return df
 
@@ -369,10 +311,10 @@ def CF_Rating(df):
     df['Passing Value'] = (df['Normalized Progressive Passes']*30/100) + (df['Normalized Completed Passes']*40/100) + (df['Normalized Half Space Passes']*30/100)
     df['Passing Rank'] = (((df['Passing Value'].rank(pct=True))*99)).astype(int)
 
-    df['Receiving Value'] = (df['Normalized Progressive Passes Received']*35/100) + (df['Wide Passes Received Rate']*25/100) + (df['Normalized Att Pen Touches']*40/100)
+    df['Receiving Value'] = (df['Normalized Progressive Passes Received']*40/100) + (df['Wide Passes Received Rate']*20/100) + (df['Normalized Att Pen Touches']*40/100)
     df['Receiving Rank'] = (((df['Receiving Value'].rank(pct=True))*99)).astype(int)
 
-    df['Aerial Value'] = (df['Aerial Duels Won']*50/100) + (df['Aerial Duels Won %']*50/100)
+    df['Aerial Value'] = (df['Aerial Duels Won %']*15/100) + (df['Successful Offensive Aerials']*85/100)
     df['Aerial Rank'] = (((df['Aerial Value'].rank(pct=True))*99)).astype(int)
 
     df['Shooting Value'] = (df['npxG per Shot']*40/100) + (df['NpG-xG']*40/100) + (df['Shots on Target %']*20/100)
@@ -381,11 +323,11 @@ def CF_Rating(df):
     df['Minutes Normalized'] = (((df['Minutes Normalized'].rank(pct=True))*99)).astype(int)
     
     #Centre-Forward Ratings
-    df['Advanced Forward'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*2/100) + (df['Carrying Value']*11/100) + (df['Receiving Value']*22/100) + (df['Passing Value']*2/100) + (df['Aerial Value']*15/100) + (df['Shooting Value']*28/100)).round(2)).rank(pct=True))*99).astype(int)
-    df['Pressing Forward'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*32/100) + (df['Carrying Value']*9/100) + (df['Receiving Value']*6/100) + (df['Passing Value']*13/100) + (df['Aerial Value']*12/100) + (df['Shooting Value']*8/100)).round(2)).rank(pct=True))*99).astype(int)
-    df['Deep-Lying Forward'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*14/100) + (df['Carrying Value']*8/100) + (df['Receiving Value']*2/100) + (df['Passing Value']*30/100) + (df['Aerial Value']*12/100) + (df['Shooting Value']*14/100)).round(2)).rank(pct=True))*99).astype(int)
+    df['Advanced Forward'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*1/100) + (df['Carrying Value']*11/100) + (df['Receiving Value']*21/100) + (df['Passing Value']*1/100) + (df['Aerial Value']*15/100) + (df['Shooting Value']*31/100)).round(2)).rank(pct=True))*99).astype(int)
+    df['Pressing Forward'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*35/100) + (df['Carrying Value']*5/100) + (df['Receiving Value']*2/100) + (df['Passing Value']*15/100) + (df['Aerial Value']*14/100) + (df['Shooting Value']*9/100)).round(2)).rank(pct=True))*99).astype(int)
+    df['Target Forward'] = (((((df['Minutes Normalized']*20/100) + (df['Ball Winning Value']*2/100) + (df['Carrying Value']*3/100) + (df['Receiving Value']*6/100) + (df['Passing Value']*17/100) + (df['Aerial Value']*32/100) + (df['Shooting Value']*20/100)).round(2)).rank(pct=True))*99).astype(int)
     
-    return df  
+    return df   
 
 #######################################################################
 
@@ -394,44 +336,89 @@ if not df.empty and 'Position' in df.columns and len(df['Position']) > 0:
         df = CB_Rating(df)
         df = pd.merge(df, age, on="Player")
         df.rename(columns = {'Minutes Played_y':'Minutes Played'},inplace = True)
-        df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Sweeping Rank','Possession Rank','Passing Rank','Carrying Rank','Aerial Rank','Ball-Playing CB','No-Nonsense CB','Wide CB']]
+        
+        df = df[['Player','True Position','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Sweeping Rank','Possession Rank','Passing Rank','Carrying Rank','Aerial Rank','Ball-Playing CB','No-Nonsense CB','Wide CB']]
 
     if df['Position'].iloc[0] == 'Full-Back':
         df = FB_Rating(df)
         df = pd.merge(df, age, on="Player")
         df.rename(columns = {'Minutes Played_y':'Minutes Played'},inplace = True)
-        df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Sweeping Rank','Possession Rank','Passing Rank','Carrying Rank','Creation Rank','Defensive FB', 'Complete WB', 'Inverted FB']]
+        df = df[['Player','True Position','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Sweeping Rank','Possession Rank','Passing Rank','Carrying Rank','Creation Rank','Defensive FB', 'Complete WB', 'Inverted FB']]
         
     if df['Position'].iloc[0] == 'Central Midfielder':
         df = CM_Rating(df)
         df = pd.merge(df, age, on="Player")
         df.rename(columns = {'Minutes Played_y':'Minutes Played'},inplace = True)
-        df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Sweeping Rank','Possession Rank','Passing Rank','Carrying Rank','Receiving Rank','Ball-Winning (No.4)','Deep Lying (No.6)','Box-to-Box (No.8)']]
+        df = df[['Player','True Position','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Sweeping Rank','Possession Rank','Passing Rank','Carrying Rank','Receiving Rank','Ball-Winning (No.4)','Deep Lying (No.6)','Box-to-Box (No.8)']]
         
     if df['Position'].iloc[0] == 'Attacking Midfielder':
         df = AM_Rating(df)
         df = pd.merge(df, age, on="Player")
         df.rename(columns = {'Minutes Played_y':'Minutes Played'},inplace = True)
-        df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Carrying Rank','Creation Rank','Passing Rank','Receiving Rank','Shooting Rank','Half Winger','Advanced Creator','Second Striker']]
+        df = df[['Player','True Position','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Carrying Rank','Creation Rank','Passing Rank','Receiving Rank','Shooting Rank','Half Winger','Advanced Creator','Second Striker']]
 
     if df['Position'].iloc[0] == 'Winger':
         df = W_Rating(df)
         df = pd.merge(df, age, on="Player")
         df.rename(columns = {'Minutes Played_y':'Minutes Played'},inplace = True)
-        df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Carrying Rank','Passing Rank','Creation Rank','Receiving Rank','Shooting Rank','Direct Winger','Wide Playmaker','Inside Forward']]
+        df = df[['Player','True Position','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Carrying Rank','Passing Rank','Creation Rank','Receiving Rank','Shooting Rank','Direct Winger','Wide Playmaker','Inside Forward']]
 
     if df['Position'].iloc[0] == 'Centre-Forward':
         df = CF_Rating(df)
         df = pd.merge(df, age, on="Player")
         df.rename(columns = {'Minutes Played_y':'Minutes Played'},inplace = True)
-        df = df[['Player','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Passing Rank','Carrying Rank','Receiving Rank','Shooting Rank','Aerial Rank','Advanced Forward','Pressing Forward','Deep-Lying Forward']]
+        df = df[['Player','True Position','Position','Age','Squad','League','Minutes Played','Ball Winning Rank','Passing Rank','Carrying Rank','Receiving Rank','Shooting Rank','Aerial Rank','Advanced Forward','Pressing Forward','Target Forward']]
+            
+#######################################################################
+sdf = df[['Player','True Position','Age','Squad','League'] + list(df.columns[7:13])]
+
+# Normalize the data using z-score scaling (standardization)
+scaler = StandardScaler()
+normalized_data = scaler.fit_transform(sdf[sdf.columns[7:]])
+
+# Apply K-means clustering
+num_clusters = 8  # You can choose the number of clusters based on your requirements
+kmeans = KMeans(n_clusters=num_clusters, n_init='auto', random_state=42)
+clusters = kmeans.fit_predict(normalized_data)
+
+# Add cluster labels to the DataFrame
+sdf['Cluster'] = clusters
+
+# Find the cluster of the selected player
+selected_player_cluster = sdf.loc[sdf['Player'] == player, 'Cluster'].values[0]
+
+# Get players in the same cluster as the selected player
+similar_players = sdf[sdf['Cluster'] == selected_player_cluster]
+
+# Check if the selected player exists in the cluster
+if player in similar_players['Player'].values:
+    
+    # Extract the selected player's stats
+    selected_player_stats = similar_players[similar_players['Player'] == player].iloc[0, 5:-1].values.astype(float)
+
+ # Calculate the Euclidean distance of each player in the cluster from the selected player
+    distances = np.linalg.norm(similar_players[similar_players.columns[5:-1]].values - selected_player_stats, axis=1)
+
+    # Add the 'Distance' column to the DataFrame
+    similar_players['Distance'] = distances
+
+    # Sort the players by distance (similarity) and select the top 5 most similar players
+    top_7_indices = distances.argsort()[1:8]  # Exclude the selected player itself
+    top_7_similar_players = similar_players.iloc[top_7_indices]
+
+top_7_similar_players = top_7_similar_players.iloc[:, :5].reset_index(drop=True)
+top_7_similar_players = pd.merge(top_7_similar_players, age, on="Player")
+
+top_7_similar_players = top_7_similar_players[['Player','Age_y','True Position','Squad','League','Minutes Played']]
+top_7_similar_players.rename(columns = {'Age_y':'Age', 'True Position':'Main Position'},inplace = True)
+top_7_similar_players.index += 1
+Most_Similar = top_7_similar_players['Player'].values[0]
+Age = top_7_similar_players['Age'].values[0]
 
 #######################################################################
 
 #Filter for player
 df = df.loc[(df['Player'] == player)].reset_index(drop= True)
-
-#st.dataframe(df)
 
 #add ranges to list of tuple pairs
 values = []
@@ -439,19 +426,20 @@ values = []
 for x in range(len(df['Player'])):
     if df['Player'][x] == player:
         values = df.iloc[x].values.tolist()
+        
 
-position = values[1]
-age = values[2]
-team = values[3]
-minutes = values[5]
+position = values[2]
+age = values[3]
+team = values[4]
+minutes = values[6]
 score1 = values[-3] 
 score2 = values[-2]  
 score3 = values[-1]  
-values = values[6:12]
+values = values[7:13]
 
 #get parameters
 params = list(df.columns)
-params = params[6:12]
+params = params[7:13]
 params = [y[:-5] for y in params]
 
 #get roles

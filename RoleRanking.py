@@ -575,7 +575,6 @@ st.dataframe(top_7_similar_players)
 
 with st.expander("What's Next"):
     st.write('''
-    -> Updated Aerial Ranking\n
     -> Comparing Feature\n
     -> Goalkeeper Ranking System
     ''')

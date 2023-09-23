@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-pip install --upgrade mplsoccer
 
 # In[35]:
 

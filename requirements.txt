@@ -1,8 +1,8 @@
 pandas
 scipy
 numpy
-ipywidgets
 matplotlib
 mplsoccer
+ipywidgets
 streamlit
 scikit-learn

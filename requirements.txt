@@ -1,7 +1,7 @@
 pandas
 scipy
 numpy
-matplotlib
+#matplotlib
 mplsoccer
 ipywidgets
 streamlit

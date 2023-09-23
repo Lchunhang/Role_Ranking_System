@@ -9,7 +9,7 @@ from scipy.stats import zscore
 import numpy as np
 import ipywidgets as widgets
 #import matplotlib.pyplot as plt
-from mplsoccer import PyPizza
+#from mplsoccer import PyPizza
 import warnings
 import streamlit as st
 from sklearn import preprocessing

@@ -15,7 +15,7 @@ import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 import os
-import matplotlib.font_manager as fm
+#import matplotlib.font_manager as fm
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 

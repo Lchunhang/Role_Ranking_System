@@ -452,7 +452,7 @@ roles = roles[-3:]
 # color for the slices and text
 slice_colors = ["#42b84a"] * 2 + ["#fbcf00"] * 2 + ["#39a7ab"] * 2
 text_colors = ["#000000"] * 2 +  ["#000000"] * 2 + ["#000000"] * 2
-
+from mplsoccer import PyPizza
 # instantiate PyPizza class
 baker = PyPizza(
     params=params,                    

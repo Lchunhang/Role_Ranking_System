@@ -18,6 +18,7 @@ import os
 import matplotlib.font_manager as fm
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from mplsoccer import cache
 
 hide_github_icon = """
 <style>
@@ -587,3 +588,11 @@ with st.expander("Special Thanks"):
     Joel A. Adejola (@joeladejola), Anuraag Kulkarni (@Anuraag027) , Rahul (@exceedingxpuns), Yusuf Raihan (@myusufraihan) & Daryl Dao (@dgouilard) for their thought-provoking review on the metrics applied here.\n
     Thank you for the support!
     ''')
+# Create a Streamlit button to clear the cache
+if st.button("Clear Cache"):
+    cache.clear_cache()
+    st.success("Cache has been cleared!")
+
+# Run your Streamlit app
+if __name__ == "__main__":
+    main()

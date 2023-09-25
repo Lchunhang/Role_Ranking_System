@@ -8,14 +8,14 @@ import pandas as pd
 from scipy.stats import zscore
 import numpy as np
 import ipywidgets as widgets
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #from mplsoccer import PyPizza
 import warnings
 import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 import os
-#import matplotlib.font_manager as fm
+import matplotlib.font_manager as fm
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
@@ -448,11 +448,11 @@ roles = list(df.columns)
 roles = roles[-3:]
 
 #######################################################################
-
+"""
 # color for the slices and text
 slice_colors = ["#42b84a"] * 2 + ["#fbcf00"] * 2 + ["#39a7ab"] * 2
 text_colors = ["#000000"] * 2 +  ["#000000"] * 2 + ["#000000"] * 2
-from mplsoccer import PyPizza
+
 # instantiate PyPizza class
 baker = PyPizza(
     params=params,                    
@@ -570,6 +570,7 @@ fig.text(
 
 # Display the plot
 st.pyplot(fig)
+"""
 
 st.markdown('<p style="font-weight:bold; font-size: 20px; color: #808080;">Similar Players to ' + player + ' (' + position + ' Template)', unsafe_allow_html=True)
 st.dataframe(top_7_similar_players)

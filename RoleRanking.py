@@ -49,9 +49,18 @@ with st.expander("App Details"):
     The Role Ranking System assigns varrying weightages to different metrics based on their relevance to specific roles, reflecting the author's perspective backed by extensive research.\n 
     Similarity Function is based on K-Means Clustering, to identify similar players based on playstyle.\n
     
-    Note: Only Outfielders from Top 7 Leagues with over 1080 Minutes Played in 2022/23 Season are Included for Selection.
+    Note: Only Outfielders from Top 7 Leagues with over 1080 Minutes Played in 2022/23 Season are Included for Selection.88
     ''')
+        
+# Create a Streamlit button to clear the cache
+if st.button("Clear Cache"):
+    cache.clear_cache()
+    st.success("Cache has been cleared!")
 
+# Run your Streamlit app
+if __name__ == "__main__":
+    main()
+        
 df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")
 
 df = df.loc[~(df['Position'] == 'Goalkeeper')]
@@ -588,11 +597,4 @@ with st.expander("Special Thanks"):
     Joel A. Adejola (@joeladejola), Anuraag Kulkarni (@Anuraag027) , Rahul (@exceedingxpuns), Yusuf Raihan (@myusufraihan) & Daryl Dao (@dgouilard) for their thought-provoking review on the metrics applied here.\n
     Thank you for the support!
     ''')
-# Create a Streamlit button to clear the cache
-if st.button("Clear Cache"):
-    cache.clear_cache()
-    st.success("Cache has been cleared!")
 
-# Run your Streamlit app
-if __name__ == "__main__":
-    main()

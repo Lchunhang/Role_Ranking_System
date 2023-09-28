@@ -8,17 +8,14 @@ import pandas as pd
 from scipy.stats import zscore
 import numpy as np
 import ipywidgets as widgets
-import matplotlib.pyplot as plt
 from mplsoccer import PyPizza
 import warnings
 import streamlit as st
 from sklearn import preprocessing
 from streamlit import components
 import os
-import matplotlib.font_manager as fm
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
-from mplsoccer import cache
 
 hide_github_icon = """
 <style>
@@ -51,15 +48,6 @@ with st.expander("App Details"):
     
     Note: Only Outfielders from Top 777 Leagues with over 1080 Minutes Played in 2022/23 Season are Included for Selection.
     ''')
-        
-# Create a Streamlit button to clear the cache
-if st.button("Clear Cache"):
-    cache.clear_cache()
-    st.success("Cache has been cleared!")
-
-# Run your Streamlit app
-if __name__ == "__main__":
-    main()
         
 df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")
 
@@ -597,4 +585,3 @@ with st.expander("Special Thanks"):
     Joel A. Adejola (@joeladejola), Anuraag Kulkarni (@Anuraag027) , Rahul (@exceedingxpuns), Yusuf Raihan (@myusufraihan) & Daryl Dao (@dgouilard) for their thought-provoking review on the metrics applied here.\n
     Thank you for the support!
     ''')
-

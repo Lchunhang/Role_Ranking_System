@@ -46,7 +46,7 @@ with st.expander("App Details"):
     The Role Ranking System assigns varrying weightages to different metrics based on their relevance to specific roles, reflecting the author's perspective backed by extensive research.\n 
     Similarity Function is based on K-Means Clustering, to identify similar players based on playstyle.\n
     
-    Note: Only Outfielders from Top 777 Leagues with over 1080 Minutes Played in 2022/23 Season are Included for Selection.
+    Note: Only Outfielders from Top 7 Leagues with over 1080 Minutes Played in 2022/23 Season are Included for Selection.
     ''')
         
 df = pd.read_csv("https://raw.githubusercontent.com/Lchunhang/StreamLit/main/FinalStats.csv")

@@ -16,6 +16,7 @@ from streamlit import components
 import os
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+import altair as alt
 
 hide_github_icon = """
 <style>

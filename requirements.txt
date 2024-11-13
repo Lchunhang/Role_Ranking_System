@@ -7,3 +7,4 @@ ipywidgets
 scikit-learn
 matplotlib
 protobuf==3.20.3
+altair

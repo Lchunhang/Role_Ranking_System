@@ -7,7 +7,6 @@
 import pandas as pd
 from scipy.stats import zscore
 import numpy as np
-import ipywidgets as widgets
 from mplsoccer import PyPizza
 import warnings
 import streamlit as st
